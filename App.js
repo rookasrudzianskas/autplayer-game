@@ -46,7 +46,7 @@ const App = () => {
 
 
     const checkTieState = () => {
-        if(isTie) {
+        if(isTie(map)) {
             Alert.alert('Tie', 'No one won the game');
             setMap([
                 ['', '', ''],
@@ -68,11 +68,7 @@ const App = () => {
     }
 
     const resetGame = () => {
-        setMap([
-            ['', '', ''],
-            ['', '', ''],
-            ['', '', ''],
-        ]);
+        setMap(copyArray(emptyMap));
         setCurrentTurn('x');
     }
 
