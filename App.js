@@ -32,7 +32,10 @@ const styles = StyleSheet.create({
     paddingTop: 15,
   },
   map: {
-
+    borderWidth: 1,
+    borderColor: '#fff',
+    width: '80%',
+    aspectRatio: 1,
   },
   circle: {
     width: 75,
