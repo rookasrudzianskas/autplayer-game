@@ -46,6 +46,22 @@ export default function App() {
             Alert.alert('O wins. Row: ', i);
         }
     }
+
+    // Check columns
+    for(let i = 0; i < 3; i++) {
+
+      let isColumnXWinner = true;
+      let isColumnYWinner = true;
+
+        for (let row = 0; i < 3; i++) {
+          if(map[row][col] !== 'x') {
+            isColumnXWinner = false;
+          }
+          if(map[row][col] !== 'o') {
+            isColumnYWinner = false;
+          }
+        }
+    }
   }
 
 
@@ -57,7 +73,7 @@ export default function App() {
           {map.map((row, rowIndex) => (
               <View key={rowIndex} style={styles.row}>
                 {row.map((cell, columnIndex) => (
-                  <TouchableOpacity activeOpacity={0.7} onPress={() => onPress(rowIndex, columnIndex)} key={columnIndex} style={styles.cell}>
+                  <TouchableOpacity activeOpacity={0.7} onPress={() => onPress(rowIndex, columnIndex)} key={`${columnIndex}-`} style={styles.cell}>
                     {cell === 'o' && (
                         <View style={styles.circle} />
                     )}
