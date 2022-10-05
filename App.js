@@ -2,7 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import {Alert, ImageBackground, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import bg from './assets/bg.jpeg';
 import {useState} from "react";
-import Cross from "./src/components/cross";
+import Cross from "./src/components/Cross";
+import Cell from "./src/components/Cell";
 
 const emptyMap = [
     ['', '', ''],
@@ -157,29 +158,17 @@ export default function App() {
       <ImageBackground source={bg} style={styles.bg} resizeMode={'contain'} >
         <Text className="absolute top-20 text-white uppercase tracking-widest text-lg font-semibold">Current turn: {currentTurn}</Text>
         <View style={styles.map}>
-
           {map.map((row, rowIndex) => (
-              <View key={rowIndex} style={styles.row}>
+              <View key={`row-${rowIndex}`} style={styles.row}>
                 {row.map((cell, columnIndex) => (
-                  <TouchableOpacity activeOpacity={0.7} onPress={() => onPress(rowIndex, columnIndex)} key={`${columnIndex}-`} style={styles.cell}>
-                    {cell === 'o' && (
-                        <View style={styles.circle} />
-                    )}
-
-                    {cell === 'x' && (
-                        <Cross />
-                    )}
-
-                  </TouchableOpacity>
+                    <Cell
+                        key={`row-${rowIndex}-col-${columnIndex}`}
+                        cell={cell}
+                        onPress={() => onPress(rowIndex, columnIndex)}
+                    />
                 ))}
               </View>
           ))}
-
-
-            {/*<View style={styles.circle} />*/}
-
-
-
         </View>
       </ImageBackground>
     </View>
@@ -189,39 +178,39 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#242D34',
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#242D34",
   },
   bg: {
-    width: '100%',
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+
     paddingTop: 15,
   },
   map: {
-    width: '80%',
+    width: "80%",
     aspectRatio: 1,
   },
   row: {
     flex: 1,
-    flexDirection: 'row',
-    margin: 5,
+    flexDirection: "row",
   },
-  cell: {
-    width: 100,
-    height: 100,
-    flex: 1,
+  buttons: {
+    position: "absolute",
+    bottom: 50,
+    flexDirection: "row",
   },
-  circle: {
-    flex: 1,
-    borderRadius: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
+  button: {
+    color: "white",
     margin: 10,
-    borderWidth: 10,
-    borderColor: '#fff',
-  }
+    fontSize: 16,
+    backgroundColor: "#191F24",
+    padding: 10,
+    paddingHorizontal: 15,
+  },
 });
+
 
