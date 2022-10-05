@@ -4,7 +4,10 @@ import bg from './assets/bg.jpeg';
 import {useState} from "react";
 
 export default function App() {
-  const [map, setMap] = useState(null);
+  const [map, setMap] = useState([
+      [' ', ' ', ' '],
+      [' ', ' ', ' '],
+  ]);
 
 
   return (
