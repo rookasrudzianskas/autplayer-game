@@ -16,13 +16,14 @@ export default function App() {
       <ImageBackground source={bg} style={styles.bg} resizeMode={'contain'} >
         <View style={styles.map}>
 
-          {map.map((row, i) => {
-            row.map((cell, i) => (
-                <View style={styles.cell}>
-                    <Text style={styles.cellText}>Something</Text>
-                </View>
-            ))
-          })}
+          {map.map((row, i) => (
+              <View style={styles.row}>
+                {row.map((cell, i) => (
+                  <View key={i} style={styles.cell}>
+                  </View>
+                ))}
+              </View>
+          ))}
 
 
             {/*<View style={styles.circle} />*/}
@@ -58,12 +59,17 @@ const styles = StyleSheet.create({
     width: '80%',
     aspectRatio: 1,
   },
+  row: {
+    flex: 1,
+    flexDirection: 'row',
+    margin: 5,
+  },
   cell: {
     width: 100,
     height: 100,
     flex: 1,
-    borderColor: 'red',
     borderWidth: 1,
+    borderColor: 'white'
   },
   circle: {
     position: 'absolute',
