@@ -23,20 +23,18 @@ const copyArray = (original) => {
 
 export default function App() {
   const [map, setMap] = useState(emptyMap);
-
+  const [gameMode, setGameMode] = useState("BOT_MEDIUM"); // LOCAL, BOT_EASY, BOT_MEDIUM;
   const [currentTurn, setCurrentTurn] = useState('x');
 
   useEffect(() => {
-    if (currentTurn === "o" ) {
+    if (currentTurn === "o" && gameMode !== "LOCAL") {
       botTurn();
     }
-  }, [currentTurn]);
+  }, [currentTurn, gameMode]);
 
   const onPress = (rowIndex, columnIndex) => {
-    // console.warn('onPress -', `${rowIndex} ${columnIndex}`);
-
-    if(map[rowIndex][columnIndex] !== '') {
-      Alert.alert('Error', 'This cell is already occupied');
+    if (map[rowIndex][columnIndex] !== "") {
+      Alert.alert("Position already occupied");
       return;
     }
 
@@ -46,17 +44,9 @@ export default function App() {
       return updatedMap;
     });
 
-    setCurrentTurn((existingTurn) => {
-      return existingTurn === 'x' ? 'o' : 'x';
-    });
+    setCurrentTurn(currentTurn === "x" ? "o" : "x");
+  };
 
-    const winner = getWinner();
-    if(winner) {
-      gameWon(winner);
-    } else {
-      checkTieState();
-    }
-  }
 
   const getWinner = (winnerMap) => {
     // Check rows
@@ -170,15 +160,40 @@ export default function App() {
       });
     });
 
-    // Defend
-    // Check if open-tent is about to win, if it takes on of the winning positions, block it
-
-    possiblePositions.forEach((position) => {
-
-    });
-
     let chosenOption;
 
+    if (gameMode === "BOT_MEDIUM") {
+      // Attack
+      possiblePositions.forEach((possiblePosition) => {
+        const mapCopy = copyArray(map);
+
+        mapCopy[possiblePosition.row][possiblePosition.col] = "o";
+
+        const winner = getWinner(mapCopy);
+        if (winner === "o") {
+          // Attack that position
+          chosenOption = possiblePosition;
+        }
+      });
+
+      if (!chosenOption) {
+        // Defend
+        // Check if the opponent WINS if it takes one of the possible Positions
+        possiblePositions.forEach((possiblePosition) => {
+          const mapCopy = copyArray(map);
+
+          mapCopy[possiblePosition.row][possiblePosition.col] = "x";
+
+          const winner = getWinner(mapCopy);
+          if (winner === "x") {
+            // Defend that position
+            chosenOption = possiblePosition;
+          }
+        });
+      }
+    }
+
+    // choose random
     if (!chosenOption) {
       chosenOption =
           possiblePositions[Math.floor(Math.random() * possiblePositions.length)];
@@ -187,9 +202,7 @@ export default function App() {
     if (chosenOption) {
       onPress(chosenOption.row, chosenOption.col);
     }
-
-
-  }
+  };
 
 
   return (
