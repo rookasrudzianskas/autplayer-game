@@ -134,7 +134,11 @@ export default function App() {
   }
 
   const resetGame = () => {
-    setMap(emptyMap);
+    setMap([
+        ['', '', ''],
+        ['', '', ''],
+        ['', '', ''],
+    ]);
     setCurrentTurn('x');
   }
 
