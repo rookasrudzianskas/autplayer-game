@@ -105,19 +105,11 @@ export default function App() {
       }
     }
 
-    if(isDiagonal1OWinning) {
+    if(isDiagonal1OWinning || isDiagonal2OWinning) {
       gameWon('o');
     }
 
-    if(isDiagonal1XWinning) {
-      gameWon('x');
-    }
-
-    if(isDiagonal2OWinning) {
-      gameWon('o');
-    }
-
-    if(isDiagonal2XWinning) {
+    if(isDiagonal1XWinning || isDiagonal2XWinning) {
       gameWon('x');
     }
   }
