@@ -3,12 +3,14 @@ import {Alert, ImageBackground, StyleSheet, Text, TouchableOpacity, View} from '
 import bg from './assets/bg.jpeg';
 import {useState} from "react";
 
+const emptyMap = [
+    ['', '', ''],
+    ['', '', ''],
+    ['', '', ''],
+]
+
 export default function App() {
-  const [map, setMap] = useState([
-      ['', '', ''],
-      ['', '', ''],
-      ['', '', ''],
-  ]);
+  const [map, setMap] = useState(emptyMap);
 
   const [currentTurn, setCurrentTurn] = useState('x');
 
@@ -118,6 +120,11 @@ export default function App() {
     if(isDiagonal2XWinning) {
         Alert.alert(`X wins. Diagonal 2`);
     }
+  }
+
+  const resetGame = () => {
+    setMap(emptyMap);
+    setCurrentTurn('x');
   }
 
 
