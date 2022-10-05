@@ -210,7 +210,6 @@ export default function App() {
     }
   };
 
-
   return (
     <View style={styles.container} className="relative bg-[#242D34]">
       <ImageBackground source={bg} style={styles.bg} resizeMode={'contain'} >
