@@ -8,6 +8,7 @@ import {withAuthenticator} from "aws-amplify-react-native/src/Auth";
 Amplify.configure(awsconfig);
 import {emptyMap, copyArray} from './src/utils/index';
 import {getWinner, isTie} from './src/utils/gameLogic';
+import {botTurn} from "./src/utils/bot";
 
 const App = () => {
     const [map, setMap] = useState(emptyMap);
@@ -16,7 +17,10 @@ const App = () => {
 
     useEffect(() => {
         if (currentTurn === "o" && gameMode !== "LOCAL") {
-            botTurn();
+            const chosenOption = botTurn(map, gameMode);
+            if(chosenOption) {
+                onPress(chosenOption.row, chosenOption.col);
+            }
         }
     }, [currentTurn, gameMode]);
 
@@ -68,64 +72,13 @@ const App = () => {
     }
 
     const resetGame = () => {
-        setMap(copyArray(emptyMap));
+        setMap([
+            ['', '', ''],
+            ['', '', ''],
+            ['', '', ''],
+        ]);
         setCurrentTurn('x');
     }
-
-    const botTurn = () => {
-        // collect all possible options
-        const possiblePositions = [];
-        map.forEach((row, rowIndex) => {
-            row.forEach((cell, columnIndex) => {
-                if (cell === "") {
-                    possiblePositions.push({ row: rowIndex, col: columnIndex });
-                }
-            });
-        });
-
-        let chosenOption;
-
-        if (gameMode === "BOT_MEDIUM") {
-            // Attack
-            possiblePositions.forEach((possiblePosition) => {
-                const mapCopy = copyArray(map);
-
-                mapCopy[possiblePosition.row][possiblePosition.col] = "o";
-
-                const winner = getWinner(mapCopy);
-                if (winner === "o") {
-                    // Attack that position
-                    chosenOption = possiblePosition;
-                }
-            });
-
-            if (!chosenOption) {
-                // Defend
-                // Check if the opponent WINS if it takes one of the possible Positions
-                possiblePositions.forEach((possiblePosition) => {
-                    const mapCopy = copyArray(map);
-
-                    mapCopy[possiblePosition.row][possiblePosition.col] = "x";
-
-                    const winner = getWinner(mapCopy);
-                    if (winner === "x") {
-                        // Defend that position
-                        chosenOption = possiblePosition;
-                    }
-                });
-            }
-        }
-
-        // choose random
-        if (!chosenOption) {
-            chosenOption =
-                possiblePositions[Math.floor(Math.random() * possiblePositions.length)];
-        }
-
-        if (chosenOption) {
-            onPress(chosenOption.row, chosenOption.col);
-        }
-    };
 
     const onLogOut = () => {
         Auth.signOut();
