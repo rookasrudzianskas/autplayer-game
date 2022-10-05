@@ -29,6 +29,8 @@ export default function App() {
     setCurrentTurn((existingTurn) => {
       return existingTurn === 'x' ? 'o' : 'x';
     });
+
+    checkWinningState();
   }
 
   const checkWinningState = () => {
