@@ -48,18 +48,18 @@ export default function App() {
     }
   }
 
-  const getWinner = () => {
+  const getWinner = (winnerMap) => {
     // Check rows
-    for(let i = 0; i < 3; i++) {
-        const isRowXWinning = map[i].every((cell) => cell === 'x');
-        const isRowOWinning = map[i].every((cell) => cell === '0');
-        if(isRowXWinning) {
-          return 'x';
-        }
+    for (let i = 0; i < 3; i++) {
+      const isRowXWinning = winnerMap[i].every((cell) => cell === "x");
+      const isRowOWinning = winnerMap[i].every((cell) => cell === "o");
 
-        if(isRowOWinning) {
-            return 'o';
-        }
+      if (isRowXWinning) {
+        return "x";
+      }
+      if (isRowOWinning) {
+        return "o";
+      }
     }
 
 
