@@ -67,28 +67,24 @@ export default function App() {
     let isColumnOWinner = true;
 
     // Check columns
-    for(let col = 0; col < 3; col++) {
+    for (let col = 0; col < 3; col++) {
+      let isColumnXWinner = true;
+      let isColumnOWinner = true;
 
-      isColumnXWinner = true;
-      isColumnOWinner = true;
-
-        for (let row = 0; row < 3; row++) {
-          if(map[row][col] !== 'x') {
-            isColumnXWinner = false;
-          }
-          if(map[row][col] !== 'o') {
-            isColumnOWinner = false;
-          }
+      for (let row = 0; row < 3; row++) {
+        if (winnerMap[row][col] !== "x") {
+          isColumnXWinner = false;
         }
-
-      if(isColumnXWinner) {
-        return 'x';
-        break;
+        if (winnerMap[row][col] !== "o") {
+          isColumnOWinner = false;
+        }
       }
 
-      if(isColumnOWinner) {
-        return 'o';
-        break;
+      if (isColumnXWinner) {
+        return "x";
+      }
+      if (isColumnOWinner) {
+        return "o";
       }
     }
 
@@ -98,34 +94,29 @@ export default function App() {
     let isDiagonal2OWinning = true;
     let isDiagonal2XWinning = true;
 
-    for(let i = 0; i < 3; i++) {
-      if(map[i][i] !== 'o') {
+    for (let i = 0; i < 3; i++) {
+      if (winnerMap[i][i] !== "o") {
         isDiagonal1OWinning = false;
-        // break;
       }
-      if(map[i][i] !== 'x') {
+      if (winnerMap[i][i] !== "x") {
         isDiagonal1XWinning = false;
-        // break;
       }
-      if(map[2 - i][i] !== 'o') {
+
+      if (winnerMap[i][2 - i] !== "o") {
         isDiagonal2OWinning = false;
-          // break;
       }
-
-      if(map[2 - i][i] !== 'x') {
+      if (winnerMap[i][2 - i] !== "x") {
         isDiagonal2XWinning = false;
-        // break;
       }
     }
 
-    if(isDiagonal1OWinning || isDiagonal2OWinning) {
-        return 'o';
+    if (isDiagonal1OWinning || isDiagonal2OWinning) {
+      return "o";
     }
-
-    if(isDiagonal1XWinning || isDiagonal2XWinning) {
-        return 'x';
+    if (isDiagonal1XWinning || isDiagonal2XWinning) {
+      return "x";
     }
-  }
+}
 
   const checkTieState = () => {
     if(!map.some(row => row.some(cell => cell === ''))) {
