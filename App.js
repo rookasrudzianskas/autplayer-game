@@ -39,11 +39,11 @@ export default function App() {
         const isRowXWinning = map[i].every((cell) => cell === 'x');
         const isRowOWinning = map[i].every((cell) => cell === '0');
         if(isRowXWinning) {
-            Alert.alert('X wins. Row: ', i);
+            Alert.alert(`X wins. Row: ${i}`);
         }
 
         if(isRowOWinning) {
-            Alert.alert('O wins. Row: ', i);
+            Alert.alert(`O wins. Row: ${i}`);
         }
     }
 
@@ -67,12 +67,12 @@ export default function App() {
         }
 
       if(isColumnXWinner) {
-        Alert.alert('X wins. Row: ', col);
+        Alert.alert(`X wins. Row: ${col}`);
         break;
       }
 
       if(isColumnOWinner) {
-        Alert.alert('O wins. Row: ', col);
+        Alert.alert(`O wins. Row: ${col}`);
         break;
       }
 
