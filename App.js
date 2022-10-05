@@ -48,12 +48,12 @@ export default function App() {
     }
 
     // Check columns
-    for(let i = 0; i < 3; i++) {
+    for(let col = 0; col < 3; col++) {
 
       let isColumnXWinner = true;
       let isColumnOWinner = true;
 
-        for (let row = 0; i < 3; i++) {
+        for (let row = 0; row < 3; row++) {
           if(map[row][col] !== 'x') {
             isColumnXWinner = false;
           }
@@ -61,6 +61,15 @@ export default function App() {
             isColumnOWinner = false;
           }
         }
+
+      if(isColumnXWinner) {
+        Alert.alert('X wins. Row: ');
+      }
+
+      if(isColumnOWinner) {
+        Alert.alert('O wins. Row: ');
+      }
+
     }
   }
 
