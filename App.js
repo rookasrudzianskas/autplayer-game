@@ -5,9 +5,9 @@ import {useState} from "react";
 
 export default function App() {
   const [map, setMap] = useState([
-      ['o', '', 'o'],
-      ['', 'x', 'x'],
-      ['o', '', ''],
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', ''],
   ]);
 
   const [currentTurn, setCurrentTurn] = useState('x');
@@ -29,6 +29,15 @@ export default function App() {
     setCurrentTurn((existingTurn) => {
       return existingTurn === 'x' ? 'o' : 'x';
     });
+  }
+
+  const checkWinningState = () => {
+    // Check rows
+    for(let i = 0; i < 3; i++) {
+        if(map[i][0] === map[i][1] && map[i][1] === map[i][2] && map[i][0] !== '') {
+            return map[i][0];
+        }
+    }
   }
 
 
@@ -83,8 +92,6 @@ const styles = StyleSheet.create({
     paddingTop: 15,
   },
   map: {
-    borderWidth: 1,
-    borderColor: '#fff',
     width: '80%',
     aspectRatio: 1,
   },
@@ -97,8 +104,6 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     flex: 1,
-    borderWidth: 1,
-    borderColor: 'white'
   },
   circle: {
     flex: 1,
