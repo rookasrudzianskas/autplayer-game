@@ -1,8 +1,8 @@
-import {Alert, ImageBackground, StyleSheet, Text, View} from 'react-native';
+import {Alert, ImageBackground, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import bg from './assets/bg.jpeg';
 import {useEffect, useState} from "react";
 import Cell from "./src/components/Cell";
-import { Amplify } from 'aws-amplify'
+import {Amplify, Auth} from 'aws-amplify'
 import awsconfig from './src/aws-exports'
 import {withAuthenticator} from "aws-amplify-react-native/src/Auth";
 Amplify.configure(awsconfig);
@@ -214,9 +214,16 @@ const App = () => {
         }
     };
 
+    const onLogOut = () => {
+        Auth.signOut();
+    }
+
     return (
         <View style={styles.container} className="relative bg-[#242D34]">
             <ImageBackground source={bg} style={styles.bg} resizeMode={'contain'} >
+                <TouchableOpacity onPress={onLogOut} activeOpacity={0.7} className="absolute top-14 py-1 px-4 rounded-lg bg-blue-500">
+                    <Text className="font-semibold text-white">Sign out</Text>
+                </TouchableOpacity>
                 <Text className="absolute top-20 text-white uppercase tracking-widest text-lg font-semibold">Current turn: {currentTurn}</Text>
                 <View style={styles.map}>
                     {map.map((row, rowIndex) => (
