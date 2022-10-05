@@ -37,8 +37,13 @@ export default function App() {
     // Check rows
     for(let i = 0; i < 3; i++) {
         const isRowXWinning = map[i].every((cell) => cell === 'x');
+        const isRowOWinning = map[i].every((cell) => cell === '0');
         if(isRowXWinning) {
             Alert.alert('X wins. Row: ', i);
+        }
+
+        if(isRowOWinning) {
+            Alert.alert('O wins. Row: ', i);
         }
     }
   }
