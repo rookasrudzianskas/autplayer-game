@@ -34,8 +34,9 @@ export default function App() {
   const checkWinningState = () => {
     // Check rows
     for(let i = 0; i < 3; i++) {
-        if(map[i][0] === map[i][1] && map[i][1] === map[i][2] && map[i][0] !== '') {
-            return map[i][0];
+        const isRowXWinning = map[i].every((cell) => cell === 'x');
+        if(isRowXWinning) {
+            Alert.alert('X wins. Row: ', i);
         }
     }
   }
@@ -47,7 +48,7 @@ export default function App() {
         <View style={styles.map}>
 
           {map.map((row, rowIndex) => (
-              <View style={styles.row}>
+              <View key={rowIndex} style={styles.row}>
                 {row.map((cell, columnIndex) => (
                   <TouchableOpacity activeOpacity={0.7} onPress={() => onPress(rowIndex, columnIndex)} key={columnIndex} style={styles.cell}>
                     {cell === 'o' && (
