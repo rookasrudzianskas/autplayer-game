@@ -6,21 +6,7 @@ import {Amplify, Auth} from 'aws-amplify'
 import awsconfig from './src/aws-exports'
 import {withAuthenticator} from "aws-amplify-react-native/src/Auth";
 Amplify.configure(awsconfig);
-
-const emptyMap = [
-    ['', '', ''],
-    ['', '', ''],
-    ['', '', ''],
-];
-
-const copyArray = (original) => {
-    // console.log("ghe");
-    // console.log(original);
-    // console.log(copy);
-    return original.map((arr) => {
-        return arr.slice();
-    });
-};
+import {emptyMap, copyArray} from './src/utils/index';
 
 const App = () => {
     const [map, setMap] = useState(emptyMap);
