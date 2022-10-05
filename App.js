@@ -33,6 +33,7 @@ export default function App() {
     });
 
     checkWinningState();
+    checkTieState();
   }
 
   const checkWinningState = () => {
@@ -111,6 +112,17 @@ export default function App() {
 
     if(isDiagonal1XWinning || isDiagonal2XWinning) {
       gameWon('x');
+    }
+  }
+
+  const checkTieState = () => {
+    if(!map.some(row => row.some(cell => cell === ''))) {
+      Alert.alert('Tie', 'No one won the game');
+      setMap([
+        ['', '', ''],
+        ['', '', ''],
+        ['', '', ''],
+      ]);
     }
   }
 
