@@ -7,11 +7,9 @@ export default function App() {
     <View style={styles.container} className="bg-[#242D34]">
       <ImageBackground source={bg} style={styles.bg} resizeMode={'contain'} >
         <View style={styles.map}>
-            <View style={styles.circle} />
-
-            <View>
-              <View style={styles.crossLina} />
-              <View style={[styles.crossLina, styles.crossLineReversed]} />
+            <View style={styles.circle} /><View>
+              <View style={styles.crossLine} />
+              <View style={[styles.crossLine, styles.crossLineReversed]} />
             </View>
         </View>
       </ImageBackground>
@@ -56,6 +54,20 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: 10,
     height: 70,
+    backgroundColor: 'white',
+    borderRadius: 5,
+    transform: [
+      {
+        rotate: '45deg',
+      }
+    ]
+  },
+  crossLineReversed: {
+    transform: [
+      {
+        rotate: '-45deg',
+      }
+        ],
   }
 });
 
