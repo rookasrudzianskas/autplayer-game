@@ -5,8 +5,9 @@ import {useState} from "react";
 
 export default function App() {
   const [map, setMap] = useState([
-      [' ', ' ', ' '],
-      [' ', ' ', ' '],
+      ['0', '', ''],
+      ['', 'x', 'x'],
+      ['0', '', ''],
   ]);
 
 
