@@ -228,7 +228,7 @@ export default function App() {
               </View>
           ))}
         </View>
-        <View style={styles.Buttons}>
+        <View style={styles.buttons}>
           <Text
               onPress={() => setGameMode("LOCAL")}
               style={[
