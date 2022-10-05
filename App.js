@@ -78,12 +78,45 @@ export default function App() {
     }
 
     // Check diagonals
-    let isDiagonalOVWinning;
+    let isDiagonal1OWinning = true;
+    let isDiagonal1XWinning = true;
+    let isDiagonal2OWinning = true;
+    let isDiagonal2XWinning = true;
+
     for(let i = 0; i < 3; i++) {
       if(map[i][i] !== 'o') {
-        isDiagonalOVWinning = false;
+        isDiagonal1OWinning = false;
         break;
       }
+      if(map[i][i] !== 'x') {
+        isDiagonal1XWinning = false;
+        break;
+      }
+      if(map[2 - i][i] !== 'o') {
+        isDiagonal2OWinning = false;
+          break;
+      }
+
+      if(map[2 - i][i] !== 'x') {
+        isDiagonal2XWinning = false;
+        break;
+      }
+    }
+
+    if(isDiagonal1OWinning) {
+      Alert.alert(`O wins. Diagonal 1`);
+    }
+
+    if(isDiagonal1XWinning) {
+      Alert.alert(`X wins. Diagonal 1`);
+    }
+
+    if(isDiagonal2OWinning) {
+        Alert.alert(`O wins. Diagonal 2`);
+    }
+
+    if(isDiagonal2XWinning) {
+        Alert.alert(`X wins. Diagonal 2`);
     }
   }
 
