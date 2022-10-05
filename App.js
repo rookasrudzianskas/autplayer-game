@@ -7,7 +7,8 @@ export default function App() {
     <View style={styles.container} className="bg-[#242D34]">
       <ImageBackground source={bg} style={styles.bg} resizeMode={'contain'} >
         <View style={styles.map}>
-            <View style={styles.circle} /><View>
+            <View style={styles.circle} />
+            <View style={styles.cross}>
               <View style={styles.crossLine} />
               <View style={[styles.crossLine, styles.crossLineReversed]} />
             </View>
@@ -47,14 +48,14 @@ const styles = StyleSheet.create({
     borderWidth: 10,
     borderColor: '#fff',
   },
-  innerCircle: {
-    width: 50,
-    height: 50,
-    backgroundColor: '#242D34',
-    borderRadius: 50,
+  cross: {
+    backgroundColor: 'red',
+    width: 75,
+    height: 75,
   },
   crossLine: {
     position: 'absolute',
+    left: 32.5,
     width: 10,
     height: 70,
     backgroundColor: 'white',
