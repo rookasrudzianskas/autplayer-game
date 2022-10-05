@@ -67,12 +67,12 @@ export default function App() {
         }
 
       if(isColumnXWinner) {
-        Alert.alert(`X wins. Row: ${col}`);
+        Alert.alert(`X wins. Col: ${col}`);
         break;
       }
 
       if(isColumnOWinner) {
-        Alert.alert(`O wins. Row: ${col}`);
+        Alert.alert(`O wins. Col: ${col}`);
         break;
       }
 
