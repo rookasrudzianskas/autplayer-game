@@ -1,8 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
-import {Alert, ImageBackground, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Alert, ImageBackground, StyleSheet, Text, View} from 'react-native';
 import bg from './assets/bg.jpeg';
 import {useEffect, useState} from "react";
-import Cross from "./src/components/Cross";
 import Cell from "./src/components/Cell";
 
 const emptyMap = [
@@ -14,11 +12,10 @@ const emptyMap = [
 const copyArray = (original) => {
   // console.log("ghe");
   // console.log(original);
-  const copy = original.map((arr) => {
+  // console.log(copy);
+  return original.map((arr) => {
     return arr.slice();
   });
-  // console.log(copy);
-  return copy;
 };
 
 export default function App() {
