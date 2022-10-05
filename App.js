@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import {ImageBackground, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Alert, ImageBackground, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import bg from './assets/bg.jpeg';
 import {useState} from "react";
 
@@ -10,8 +10,18 @@ export default function App() {
       ['o', '', ''],
   ]);
 
-  const onPress = () => {
-    console.warn('onPress');
+  const onPress = (rowIndex, columnIndex) => {
+    console.warn('onPress -', `${rowIndex} ${columnIndex}`);
+
+    if(map[rowIndex][columnIndex] !== '') {
+      Alert.alert('Error', 'This cell is already occupied');
+      return;
+    }
+
+    setMap((existingMap) => {
+      existingMap[rowIndex][columnIndex] = 'o';
+      return existingMap;
+    });
   }
 
 
@@ -20,10 +30,10 @@ export default function App() {
       <ImageBackground source={bg} style={styles.bg} resizeMode={'contain'} >
         <View style={styles.map}>
 
-          {map.map((row, i) => (
+          {map.map((row, rowIndex) => (
               <View style={styles.row}>
-                {row.map((cell, i) => (
-                  <TouchableOpacity activeOpacity={0.7} onPress={onPress} key={i} style={styles.cell}>
+                {row.map((cell, columnIndex) => (
+                  <TouchableOpacity activeOpacity={0.7} onPress={() => onPress(rowIndex, columnIndex)} key={columnIndex} style={styles.cell}>
                     {cell === 'o' && (
                         <View style={styles.circle} />
                     )}
