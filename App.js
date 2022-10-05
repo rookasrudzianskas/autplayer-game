@@ -15,12 +15,22 @@ export default function App() {
     <View style={styles.container} className="bg-[#242D34]">
       <ImageBackground source={bg} style={styles.bg} resizeMode={'contain'} >
         <View style={styles.map}>
-            <View style={styles.circle} />
 
-            <View style={styles.cross}>
-              <View style={styles.crossLine} />
-              <View style={[styles.crossLine, styles.crossLineReversed]} />
-            </View>
+          {map.map((row, i) => {
+            row.map((cell, i) => (
+                <View style={styles.cell}>
+                    <Text style={styles.cellText}>Something</Text>
+                </View>
+            ))
+          })}
+
+
+            {/*<View style={styles.circle} />*/}
+
+            {/*<View style={styles.cross}>*/}
+            {/*  <View style={styles.crossLine} />*/}
+            {/*  <View style={[styles.crossLine, styles.crossLineReversed]} />*/}
+            {/*</View>*/}
 
         </View>
       </ImageBackground>
@@ -47,6 +57,13 @@ const styles = StyleSheet.create({
     borderColor: '#fff',
     width: '80%',
     aspectRatio: 1,
+  },
+  cell: {
+    width: 100,
+    height: 100,
+    flex: 1,
+    borderColor: 'red',
+    borderWidth: 1,
   },
   circle: {
     position: 'absolute',
