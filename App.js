@@ -51,14 +51,14 @@ export default function App() {
     for(let i = 0; i < 3; i++) {
 
       let isColumnXWinner = true;
-      let isColumnYWinner = true;
+      let isColumnOWinner = true;
 
         for (let row = 0; i < 3; i++) {
           if(map[row][col] !== 'x') {
             isColumnXWinner = false;
           }
           if(map[row][col] !== 'o') {
-            isColumnYWinner = false;
+            isColumnOWinner = false;
           }
         }
     }
