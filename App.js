@@ -152,9 +152,9 @@ export default function App() {
 
 
   return (
-    <View style={styles.container} className="bg-[#242D34]">
+    <View style={styles.container} className="relative bg-[#242D34]">
       <ImageBackground source={bg} style={styles.bg} resizeMode={'contain'} >
-        <Text className="text-white uppercase tracking-widest mb-10 text-lg font-semibold">Current turn: {currentTurn}</Text>
+        <Text className="absolute top-20 text-white uppercase tracking-widest text-lg font-semibold">Current turn: {currentTurn}</Text>
         <View style={styles.map}>
 
           {map.map((row, rowIndex) => (
