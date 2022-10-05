@@ -9,7 +9,17 @@ const emptyMap = [
     ['', '', ''],
     ['', '', ''],
     ['', '', ''],
-]
+];
+
+const copyArray = (original) => {
+  console.log("ghe");
+  console.log(original);
+  const copy = original.map((arr) => {
+    return arr.slice();
+  });
+  console.log(copy);
+  return copy;
+};
 
 export default function App() {
   const [map, setMap] = useState(emptyMap);
@@ -158,6 +168,13 @@ export default function App() {
           possiblePositions.push({ row: rowIndex, col: columnIndex });
         }
       });
+    });
+
+    // Defend
+    // Check if open-tent is about to win, if it takes on of the winning positions, block it
+
+    possiblePositions.forEach((position) => {
+
     });
 
     let chosenOption;
