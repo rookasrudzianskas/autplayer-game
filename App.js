@@ -12,12 +12,12 @@ const emptyMap = [
 ];
 
 const copyArray = (original) => {
-  console.log("ghe");
-  console.log(original);
+  // console.log("ghe");
+  // console.log(original);
   const copy = original.map((arr) => {
     return arr.slice();
   });
-  console.log(copy);
+  // console.log(copy);
   return copy;
 };
 
