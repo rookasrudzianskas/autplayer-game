@@ -169,6 +169,17 @@ export default function App() {
       });
     });
 
+    let chosenOption;
+
+    if (!chosenOption) {
+      chosenOption =
+          possiblePositions[Math.floor(Math.random() * possiblePositions.length)];
+    }
+
+    if (chosenOption) {
+      onPress(chosenOption.row, chosenOption.col);
+    }
+
 
   }
 
