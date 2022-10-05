@@ -29,6 +29,15 @@ export default function App() {
     }
   }, [currentTurn, gameMode]);
 
+  useEffect(() => {
+    const winner = getWinner(map);
+    if (winner) {
+      gameWon(winner);
+    } else {
+      checkTieState();
+    }
+  }, [map]);
+
   const onPress = (rowIndex, columnIndex) => {
     if (map[rowIndex][columnIndex] !== "") {
       Alert.alert("Position already occupied");
