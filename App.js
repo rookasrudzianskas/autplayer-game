@@ -7,7 +7,7 @@ import awsconfig from './src/aws-exports'
 import {withAuthenticator} from "aws-amplify-react-native/src/Auth";
 Amplify.configure(awsconfig);
 import {emptyMap, copyArray} from './src/utils/index';
-import {getWinner} from './src/utils/gameLogic';
+import {getWinner, isTie} from './src/utils/gameLogic';
 
 const App = () => {
     const [map, setMap] = useState(emptyMap);
@@ -46,7 +46,7 @@ const App = () => {
 
 
     const checkTieState = () => {
-        if(!map.some(row => row.some(cell => cell === ''))) {
+        if(isTie) {
             Alert.alert('Tie', 'No one won the game');
             setMap([
                 ['', '', ''],

@@ -1,3 +1,8 @@
+export const isTie = (map) => {
+    return !map.some(row => row.some(cell => cell === '')); // if any cell is empty, then it's not a tie
+}
+
+
 export const getWinner = (winnerMap) => {
     // Check rows
     for (let i = 0; i < 3; i++) {
