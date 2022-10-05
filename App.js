@@ -20,6 +20,12 @@ export default function App() {
               <View style={styles.row}>
                 {row.map((cell, i) => (
                   <View key={i} style={styles.cell}>
+
+                    {/*<View style={styles.circle} />*/}
+                    {/*<View style={styles.cross}>*/}
+                    {/*  <View style={styles.crossLine} />*/}
+                    {/*  <View style={[styles.crossLine, styles.crossLineReversed]} />*/}
+                    {/*</View>*/}
                   </View>
                 ))}
               </View>
@@ -28,10 +34,7 @@ export default function App() {
 
             {/*<View style={styles.circle} />*/}
 
-            {/*<View style={styles.cross}>*/}
-            {/*  <View style={styles.crossLine} />*/}
-            {/*  <View style={[styles.crossLine, styles.crossLineReversed]} />*/}
-            {/*</View>*/}
+
 
         </View>
       </ImageBackground>
@@ -72,11 +75,6 @@ const styles = StyleSheet.create({
     borderColor: 'white'
   },
   circle: {
-    position: 'absolute',
-
-    left: 2 * 120,
-    top: 2 * 120,
-
     width: 75,
     height: 75,
     borderRadius: 50,
@@ -87,7 +85,6 @@ const styles = StyleSheet.create({
     borderColor: '#fff',
   },
   cross: {
-    position: 'absolute',
     width: 75,
     height: 75,
   },
