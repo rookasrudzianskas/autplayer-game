@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import {Alert, ImageBackground, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import bg from './assets/bg.jpeg';
 import {useState} from "react";
+import Cross from "./src/components/cross";
 
 const emptyMap = [
     ['', '', ''],
@@ -166,10 +167,7 @@ export default function App() {
                     )}
 
                     {cell === 'x' && (
-                        <View style={styles.cross}>
-                          <View style={styles.crossLine} />
-                          <View style={[styles.crossLine, styles.crossLineReversed]} />
-                        </View>
+                        <Cross />
                     )}
 
                   </TouchableOpacity>
@@ -224,29 +222,6 @@ const styles = StyleSheet.create({
     margin: 10,
     borderWidth: 10,
     borderColor: '#fff',
-  },
-  cross: {
-    flex: 1,
-  },
-  crossLine: {
-    position: 'absolute',
-    left: '48%',
-    width: 10,
-    height: '100%',
-    backgroundColor: 'white',
-    borderRadius: 5,
-    transform: [
-      {
-        rotate: '45deg',
-      }
-    ]
-  },
-  crossLineReversed: {
-    transform: [
-      {
-        rotate: '-45deg',
-      }
-        ],
   }
 });
 
