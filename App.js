@@ -75,7 +75,15 @@ export default function App() {
         Alert.alert(`O wins. Col: ${col}`);
         break;
       }
+    }
 
+    // Check diagonals
+    let isDiagonalOVWinning;
+    for(let i = 0; i < 3; i++) {
+      if(map[i][i] !== 'o') {
+        isDiagonalOVWinning = false;
+        break;
+      }
     }
   }
 
