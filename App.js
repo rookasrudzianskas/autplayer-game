@@ -5,9 +5,9 @@ import {useState} from "react";
 
 export default function App() {
   const [map, setMap] = useState([
-      ['0', '', ''],
+      ['o', '', 'o'],
       ['', 'x', 'x'],
-      ['0', '', ''],
+      ['o', '', ''],
   ]);
 
 
@@ -20,12 +20,17 @@ export default function App() {
               <View style={styles.row}>
                 {row.map((cell, i) => (
                   <View key={i} style={styles.cell}>
+                    {cell === 'o' && (
+                        <View style={styles.circle} />
+                    )}
 
-                    {/*<View style={styles.circle} />*/}
-                    {/*<View style={styles.cross}>*/}
-                    {/*  <View style={styles.crossLine} />*/}
-                    {/*  <View style={[styles.crossLine, styles.crossLineReversed]} />*/}
-                    {/*</View>*/}
+                    {cell === 'x' && (
+                        <View style={styles.cross}>
+                          <View style={styles.crossLine} />
+                          <View style={[styles.crossLine, styles.crossLineReversed]} />
+                        </View>
+                    )}
+
                   </View>
                 ))}
               </View>
@@ -75,8 +80,7 @@ const styles = StyleSheet.create({
     borderColor: 'white'
   },
   circle: {
-    width: 75,
-    height: 75,
+    flex: 1,
     borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center',
@@ -85,14 +89,13 @@ const styles = StyleSheet.create({
     borderColor: '#fff',
   },
   cross: {
-    width: 75,
-    height: 75,
+    flex: 1,
   },
   crossLine: {
     position: 'absolute',
-    left: 32.5,
+    left: '48%',
     width: 10,
-    height: 70,
+    height: '100%',
     backgroundColor: 'white',
     borderRadius: 5,
     transform: [
