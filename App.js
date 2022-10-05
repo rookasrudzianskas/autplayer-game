@@ -32,21 +32,25 @@ export default function App() {
       return existingTurn === 'x' ? 'o' : 'x';
     });
 
-    checkWinningState();
-    checkTieState();
+    const winner = getWinner();
+    if(winner) {
+      gameWon(winner);
+    } else {
+      checkTieState();
+    }
   }
 
-  const checkWinningState = () => {
+  const getWinner = () => {
     // Check rows
     for(let i = 0; i < 3; i++) {
         const isRowXWinning = map[i].every((cell) => cell === 'x');
         const isRowOWinning = map[i].every((cell) => cell === '0');
         if(isRowXWinning) {
-          gameWon('x');
+          return 'x';
         }
 
         if(isRowOWinning) {
-          gameWon('o');
+            return 'o';
         }
     }
 
@@ -70,12 +74,12 @@ export default function App() {
         }
 
       if(isColumnXWinner) {
-        gameWon('x');
+        return 'x';
         break;
       }
 
       if(isColumnOWinner) {
-        gameWon('o');
+        return 'o';
         break;
       }
     }
@@ -107,11 +111,11 @@ export default function App() {
     }
 
     if(isDiagonal1OWinning || isDiagonal2OWinning) {
-      gameWon('o');
+        return 'o';
     }
 
     if(isDiagonal1XWinning || isDiagonal2XWinning) {
-      gameWon('x');
+        return 'x';
     }
   }
 
