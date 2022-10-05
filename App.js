@@ -226,9 +226,7 @@ const App = () => {
                         <Text className="font-semibold text-white">Sign out</Text>
                     </TouchableOpacity>
                 ) : (
-                    <View>
-
-                    </View>
+                    <View/>
                 )}
                 <Text className="absolute top-20 text-white uppercase tracking-widest text-lg font-semibold">Current turn: {currentTurn}</Text>
                 <View style={styles.map}>
