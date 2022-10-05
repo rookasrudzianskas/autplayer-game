@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import {ImageBackground, StyleSheet, Text, View} from 'react-native';
+import {ImageBackground, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import bg from './assets/bg.jpeg';
 import {useState} from "react";
 
@@ -10,6 +10,10 @@ export default function App() {
       ['o', '', ''],
   ]);
 
+  const onPress = () => {
+    console.warn('onPress');
+  }
+
 
   return (
     <View style={styles.container} className="bg-[#242D34]">
@@ -19,7 +23,7 @@ export default function App() {
           {map.map((row, i) => (
               <View style={styles.row}>
                 {row.map((cell, i) => (
-                  <View key={i} style={styles.cell}>
+                  <TouchableOpacity activeOpacity={0.7} onPress={onPress} key={i} style={styles.cell}>
                     {cell === 'o' && (
                         <View style={styles.circle} />
                     )}
@@ -31,7 +35,7 @@ export default function App() {
                         </View>
                     )}
 
-                  </View>
+                  </TouchableOpacity>
                 ))}
               </View>
           ))}
