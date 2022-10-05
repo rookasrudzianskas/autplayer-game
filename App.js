@@ -41,11 +41,11 @@ export default function App() {
         const isRowXWinning = map[i].every((cell) => cell === 'x');
         const isRowOWinning = map[i].every((cell) => cell === '0');
         if(isRowXWinning) {
-            Alert.alert(`X wins. Row: ${i}`);
+          gameWon('x');
         }
 
         if(isRowOWinning) {
-            Alert.alert(`O wins. Row: ${i}`);
+          gameWon('o');
         }
     }
 
@@ -69,12 +69,12 @@ export default function App() {
         }
 
       if(isColumnXWinner) {
-        Alert.alert(`X wins. Col: ${col}`);
+        gameWon('x');
         break;
       }
 
       if(isColumnOWinner) {
-        Alert.alert(`O wins. Col: ${col}`);
+        gameWon('o');
         break;
       }
     }
@@ -88,38 +88,49 @@ export default function App() {
     for(let i = 0; i < 3; i++) {
       if(map[i][i] !== 'o') {
         isDiagonal1OWinning = false;
-        break;
+        // break;
       }
       if(map[i][i] !== 'x') {
         isDiagonal1XWinning = false;
-        break;
+        // break;
       }
       if(map[2 - i][i] !== 'o') {
         isDiagonal2OWinning = false;
-          break;
+          // break;
       }
 
       if(map[2 - i][i] !== 'x') {
         isDiagonal2XWinning = false;
-        break;
+        // break;
       }
     }
 
     if(isDiagonal1OWinning) {
-      Alert.alert(`O wins. Diagonal 1`);
+      gameWon('o');
     }
 
     if(isDiagonal1XWinning) {
-      Alert.alert(`X wins. Diagonal 1`);
+      gameWon('x');
     }
 
     if(isDiagonal2OWinning) {
-        Alert.alert(`O wins. Diagonal 2`);
+      gameWon('o');
     }
 
     if(isDiagonal2XWinning) {
-        Alert.alert(`X wins. Diagonal 2`);
+      gameWon('x');
     }
+  }
+
+  const gameWon = (player) => {
+    Alert.alert(`Hurray!`, `${player} won the game!`, [
+      {
+        text: 'Play again',
+        onPress: () => {
+          resetGame();
+        }
+      }
+    ]);
   }
 
   const resetGame = () => {
