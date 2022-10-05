@@ -1,17 +1,17 @@
 import React from "react";
-import { View, StyleSheet, Pressable } from "react-native";
+import {View, StyleSheet, Pressable, TouchableOpacity} from "react-native";
 import Cross from "./Cross";
 
 const Cell = (props) => {
     const { cell, onPress } = props;
     return (
-        <Pressable
+        <TouchableOpacity activeOpacity={0.7}
             onPress={() => onPress()}
             style={styles.cell}
         >
             {cell === "o" && <View style={styles.circle} />}
             {cell === "x" && <Cross />}
-        </Pressable>
+        </TouchableOpacity>
     );
 };
 
