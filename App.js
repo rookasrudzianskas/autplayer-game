@@ -47,11 +47,15 @@ export default function App() {
         }
     }
 
+
+    let isColumnXWinner = true;
+    let isColumnOWinner = true;
+
     // Check columns
     for(let col = 0; col < 3; col++) {
 
-      let isColumnXWinner = true;
-      let isColumnOWinner = true;
+      isColumnXWinner = true;
+      isColumnOWinner = true;
 
         for (let row = 0; row < 3; row++) {
           if(map[row][col] !== 'x') {
