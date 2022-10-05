@@ -2,6 +2,10 @@ import {Alert, ImageBackground, StyleSheet, Text, View} from 'react-native';
 import bg from './assets/bg.jpeg';
 import {useEffect, useState} from "react";
 import Cell from "./src/components/Cell";
+import { Amplify } from 'aws-amplify'
+import awsconfig from './src/aws-exports'
+import {withAuthenticator} from "aws-amplify-react-native/src/Auth";
+Amplify.configure(awsconfig);
 
 const emptyMap = [
     ['', '', ''],
@@ -18,7 +22,7 @@ const copyArray = (original) => {
     });
 };
 
-export default function App() {
+const App = () => {
     const [map, setMap] = useState(emptyMap);
     const [gameMode, setGameMode] = useState("BOT_MEDIUM"); // LOCAL, BOT_EASY, BOT_MEDIUM;
     const [currentTurn, setCurrentTurn] = useState('x');
@@ -305,4 +309,6 @@ const styles = StyleSheet.create({
     },
 });
 
+
+export default withAuthenticator(App);
 
