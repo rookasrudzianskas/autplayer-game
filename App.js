@@ -143,6 +143,19 @@ const App = () => {
                     >
                         Medium Bot
                     </Text>
+
+                    <Text
+                        onPress={() => setGameMode("ONLINE")}
+                        style={[
+                            styles.button,
+                            {
+                                backgroundColor:
+                                    gameMode === "ONLINE" ? "#4F5686" : "#191F24",
+                            },
+                        ]}
+                    >
+                        ONLINE
+                    </Text>
                 </View>
             </ImageBackground>
         </View>
