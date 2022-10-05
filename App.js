@@ -221,9 +221,15 @@ const App = () => {
     return (
         <View style={styles.container} className="relative bg-[#242D34]">
             <ImageBackground source={bg} style={styles.bg} resizeMode={'contain'} >
-                <TouchableOpacity onPress={onLogOut} activeOpacity={0.7} className="absolute top-14 py-1 px-4 rounded-lg bg-blue-500">
-                    <Text className="font-semibold text-white">Sign out</Text>
-                </TouchableOpacity>
+                {false ? (
+                    <TouchableOpacity onPress={onLogOut} activeOpacity={0.7} className="absolute top-14 py-1 px-4 rounded-lg bg-blue-500">
+                        <Text className="font-semibold text-white">Sign out</Text>
+                    </TouchableOpacity>
+                ) : (
+                    <View>
+
+                    </View>
+                )}
                 <Text className="absolute top-20 text-white uppercase tracking-widest text-lg font-semibold">Current turn: {currentTurn}</Text>
                 <View style={styles.map}>
                     {map.map((row, rowIndex) => (
