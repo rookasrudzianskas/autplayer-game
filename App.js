@@ -10,8 +10,10 @@ export default function App() {
       ['o', '', ''],
   ]);
 
+  const [currentTurn, setCurrentTurn] = useState('x');
+
   const onPress = (rowIndex, columnIndex) => {
-    console.warn('onPress -', `${rowIndex} ${columnIndex}`);
+    // console.warn('onPress -', `${rowIndex} ${columnIndex}`);
 
     if(map[rowIndex][columnIndex] !== '') {
       Alert.alert('Error', 'This cell is already occupied');
@@ -19,8 +21,13 @@ export default function App() {
     }
 
     setMap((existingMap) => {
-      existingMap[rowIndex][columnIndex] = 'o';
-      return existingMap;
+      const updatedMap = [...existingMap];
+      updatedMap[rowIndex][columnIndex] = currentTurn;
+      return updatedMap;
+    });
+
+    setCurrentTurn((existingTurn) => {
+      return existingTurn === 'x' ? 'o' : 'x';
     });
   }
 
