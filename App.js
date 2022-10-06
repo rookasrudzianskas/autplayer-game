@@ -56,7 +56,7 @@ const App = () => {
         // console.warn(userData);
         const emptyStringMap = JSON.stringify(emptyMap);
         const newGame = new Game({
-            playerX: '', // we don't know yet
+            playerX: userData.attributes.sub, // we don't know yet
             map: emptyStringMap, // stringified map
             currentPlayer: 'x',
             pointsX: 0,
