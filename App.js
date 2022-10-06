@@ -17,6 +17,12 @@ const App = () => {
     const [currentTurn, setCurrentTurn] = useState('x');
 
     useEffect(() => {
+        if(gameMode === 'ONLINE') {
+            findOrCreateOnlineGame();
+        }
+    }, [gameMode]);
+
+    useEffect(() => {
         if (currentTurn === "o" && gameMode !== "LOCAL") {
             const chosenOption = botTurn(map, gameMode);
             if(chosenOption) {
@@ -33,6 +39,11 @@ const App = () => {
             checkTieState();
         }
     }, [map]);
+
+    const findOrCreateOnlineGame = () => {
+        // search for the available games, that does not have the second player, if no
+        // existing game found, create a new game and wait for the second player to join
+    }
 
     const onPress = (rowIndex, columnIndex) => {
         if (map[rowIndex][columnIndex] !== "") {
