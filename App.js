@@ -215,7 +215,7 @@ const App = () => {
         <View style={styles.container} className="relative bg-[#242D34]">
             <ImageBackground source={bg} style={styles.bg} resizeMode={'contain'} >
                 {true ? (
-                    <TouchableOpacity onPress={onLogOut} activeOpacity={0.7} className="absolute top-14 py-1 px-4 rounded-lg bg-blue-500">
+                    <TouchableOpacity onPress={onLogOut} activeOpacity={0.7} className="absolute top-12 py-1 px-4 rounded-lg bg-blue-500">
                         <Text className="font-semibold text-white">Sign out</Text>
                     </TouchableOpacity>
                 ) : (
