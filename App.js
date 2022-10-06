@@ -29,12 +29,6 @@ const App = () => {
     }, [gameMode]);
 
     useEffect(() => {
-        return () => {
-            deleteTemporaryGame();
-        }
-    }, []);
-
-    useEffect(() => {
         if (currentTurn === "o" && gameMode !== "LOCAL") {
             const chosenOption = botTurn(map, gameMode);
             if(chosenOption) {
