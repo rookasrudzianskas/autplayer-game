@@ -54,6 +54,7 @@ const App = () => {
     useEffect(() => {
         if(!game) return;
         if(game.map !== JSON.stringify(map) || game.currentPlayer !== currentTurn) {
+            console.log('Local game has updated...')
             DataStore.save(Game.copyOf(game, g => {
                 g.currentPlayer = ourPlayerType;
                 g.map = JSON.stringify(map);
@@ -98,25 +99,20 @@ const App = () => {
 
     const findOrCreateOnlineGame = async () => {
         const games = await getAvailableGames();
-        // console.warn(games.length);
-        // console.log('games', games);
         if(games.length > 0) {
-            // console.warn('#1')
             await joinGame(games[0]);
         } else {
-            // console.warn('#2')
             await createNewGame();
         }
         // search for the available games, that does not have the second player, if no
         // existing game found, create a new game and wait for the second player to join
-        // console.warn('Create online game')
     }
 
     const joinGame = async (game) => {
-        // console.warn('🚀 Joining game', game.id);
-        await DataStore.save(Game.copyOf(game, updatedGame => {
+        const updatedGame = await DataStore.save(Game.copyOf(game, updatedGame => {
             updatedGame.playerO = userData.attributes.sub;
         }));
+        setGame(updatedGame);
         setOurPlayerType('O');
     }
 
@@ -136,7 +132,6 @@ const App = () => {
     }
 
     const createNewGame = async () => {
-        // console.warn(userData);
         const emptyStringMap = JSON.stringify([
             ['', '', ''],
             ['', '', ''],
@@ -150,16 +145,13 @@ const App = () => {
             pointsO: 0,
         });
 
-        // console.warn('✅ New Game created!', newGameData);
         const createdGame = await DataStore.save(newGameData);
         setGame(createdGame);
         setOurPlayerType('X');
-        // console.warn('New game created', '✅');
     }
 
     const onPress = (rowIndex, columnIndex) => {
 
-        // console.warn('Current turn', currentTurn, ourPlayerType);
         if(gameMode === 'ONLINE' && currentTurn !== ourPlayerType) {
             Alert.alert('It is not your turn!', 'Please wait for your opponent to make a move');
             return;
@@ -208,7 +200,8 @@ const App = () => {
             ['', '', ''],
             ['', '', ''],
         ]);
-        setCurrentTurn('x');
+        setCurrentTurn('X');
+        setGame(null);
     }
 
     const onLogOut = async () => {
