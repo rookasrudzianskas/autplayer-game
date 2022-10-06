@@ -45,11 +45,18 @@ const App = () => {
     }, [map]);
 
     const findOrCreateOnlineGame = async () => {
+        const games = await getAvailableGames();
+        console.log('games', games);
         // search for the available games, that does not have the second player, if no
         // existing game found, create a new game and wait for the second player to join
         // console.warn('Create online game')
 
         await createNewGame();
+    }
+
+    const getAvailableGames = async () => {
+        const games = await DataStore.query(Game);
+        return games;
     }
 
     const createNewGame = async () => {
@@ -59,7 +66,7 @@ const App = () => {
         const newGameData = new Game({
             playerX: userData.attributes.sub, // we don't know yet
             map: emptyStringMap, // stringified map
-            currentPlayer: 'x',
+            currentPlayer: 'X',
             pointsX: 0,
             pointsO: 0,
         });
