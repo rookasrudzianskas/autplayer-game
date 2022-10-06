@@ -67,6 +67,14 @@ const App = () => {
         Auth.currentAuthenticatedUser({ bypassCache: true }).then(setUserData);
     }, []);
 
+    useEffect(() => {
+        if(!game) return;
+        // subscribe to the updates
+        const subscription = DataStore.observe(Game, game.id).subscribe(msg => {
+            console.warn(msg.model, msg.opType, msg.element);
+        });
+    }, [game]);
+
     const findOrCreateOnlineGame = async () => {
         const games = await getAvailableGames();
         // console.warn(games.length);
