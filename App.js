@@ -26,8 +26,10 @@ const App = () => {
     const [currentTurn, setCurrentTurn] = useState('x');
     const [game, setGame] = useState(null);
     const [userData, setUserData] = useState(null);
+    const [ourPlayerType, setOurPlayerType] = useState(null);
 
     useEffect(() => {
+        resetGame();
         if(gameMode === 'ONLINE') {
             findOrCreateOnlineGame();
         } else {
@@ -36,13 +38,21 @@ const App = () => {
     }, [gameMode]);
 
     useEffect(() => {
-        if (currentTurn === "o" && gameMode !== "LOCAL") {
+        if (currentTurn === "O" && ["BOT_EASY", "BOT_MEDIUM"].includes(gameMode)) {
             const chosenOption = botTurn(map, gameMode);
             if(chosenOption) {
                 onPress(chosenOption.row, chosenOption.col);
             }
         }
     }, [currentTurn, gameMode]);
+
+    useEffect(() => {
+        if(!game) return;
+        DataStore.save(Game.copyOf(game, g => {
+            g.currentPlayer = ourPlayerType;
+            g.map = JSON.stringify(map);
+        }));
+    }, [currentTurn, map]);
 
     useEffect(() => {
         const winner = getWinner(map);
@@ -79,6 +89,7 @@ const App = () => {
             updatedGame.playerO = userData.attributes.sub;
         }));
         setGame(updatedGame);
+        setOurPlayerType('O');
     }
 
     const getAvailableGames = async () => {
@@ -98,7 +109,11 @@ const App = () => {
 
     const createNewGame = async () => {
         // console.warn(userData);
-        const emptyStringMap = JSON.stringify(emptyMap);
+        const emptyStringMap = JSON.stringify([
+            ['', '', ''],
+            ['', '', ''],
+            ['', '', ''],
+        ]);
         const newGameData = new Game({
             playerX: userData.attributes.sub, // we don't know yet
             map: emptyStringMap, // stringified map
@@ -110,10 +125,17 @@ const App = () => {
         // console.warn('✅ New Game created!', newGameData);
         const createdGame = await DataStore.save(newGameData);
         setGame(createdGame);
+        setOurPlayerType('X');
         // console.warn('New game created', '✅');
     }
 
     const onPress = (rowIndex, columnIndex) => {
+
+        if(gameMode === 'ONLINE' && game?.currentPlayer !== ourPlayerType) {
+            Alert.alert('It is not your turn!', 'Please wait for your opponent to make a move');
+            return;
+        }
+
         if (map[rowIndex][columnIndex] !== "") {
             Alert.alert("Position already occupied");
             return;
@@ -125,7 +147,7 @@ const App = () => {
             return updatedMap;
         });
 
-        setCurrentTurn(currentTurn === "x" ? "o" : "x");
+        setCurrentTurn(currentTurn === "X" ? "O" : "X");
     };
 
 
