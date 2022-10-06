@@ -76,11 +76,16 @@ const App = () => {
         if(!game) return;
         // subscribe to the updates
         const subscription = DataStore.observe(Game, game.id).subscribe(msg => {
+        const newGame = msg.element;
             console.warn(msg.model, msg.opType, msg.element);
             if(msg.opType === 'UPDATE') {
-                setGame(msg.element);
-                setMap(JSON.parse(msg.element.map));
-                setCurrentTurn(msg.element.currentPlayer);
+                setGame((g) => ({...g, ...newGame}));
+                if(newGame.map) {
+                    setMap(JSON.parse(newGame.map));
+                }
+                if(newGame.currentPlayer) {
+                    setCurrentTurn(newGame.currentPlayer);
+                }
             }
         });
 
