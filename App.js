@@ -18,6 +18,7 @@ const App = () => {
     const [map, setMap] = useState(emptyMap);
     const [gameMode, setGameMode] = useState("BOT_MEDIUM"); // LOCAL, BOT_EASY, BOT_MEDIUM;
     const [currentTurn, setCurrentTurn] = useState('x');
+    const [game, setGame] = useState(null);
 
     useEffect(() => {
         if(gameMode === 'ONLINE') {
@@ -55,13 +56,17 @@ const App = () => {
         const userData = await Auth.currentAuthenticatedUser({bypassCache: true});
         // console.warn(userData);
         const emptyStringMap = JSON.stringify(emptyMap);
-        const newGame = new Game({
+        const newGameData = new Game({
             playerX: userData.attributes.sub, // we don't know yet
             map: emptyStringMap, // stringified map
             currentPlayer: 'x',
             pointsX: 0,
             pointsO: 0,
-        })
+        });
+
+        const createdGame = await DataStore.save(newGameData);
+        setGame(createdGame);
+        // console.warn('New game created', '✅');
     }
 
     const onPress = (rowIndex, columnIndex) => {
@@ -126,6 +131,7 @@ const App = () => {
                     <View/>
                 )}
                 <Text className="absolute top-20 text-white uppercase tracking-widest text-lg font-semibold">Current turn: {currentTurn}</Text>
+                {game && (<Text className="absolute top-28 text-white uppercase tracking-widest text-lg font-semibold">Game id: {game.id}</Text>)}
                 <View style={styles.map}>
                     {map.map((row, rowIndex) => (
                         <View key={`row-${rowIndex}`} style={styles.row}>
