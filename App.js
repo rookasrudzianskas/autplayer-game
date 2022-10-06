@@ -52,15 +52,8 @@ const App = () => {
     }, [currentTurn, gameMode]);
 
     useEffect(() => {
-        if(!game) return;
-        if(game.map !== JSON.stringify(map) || game.currentPlayer !== currentTurn) {
-            console.log('Local game has updated...')
-            DataStore.save(Game.copyOf(game, g => {
-                g.currentPlayer = ourPlayerType;
-                g.map = JSON.stringify(map);
-            }));
-        }
-    }, [currentTurn, map]);
+
+    }, [map]);
 
     useEffect(() => {
         const winner = getWinner(map);
@@ -79,10 +72,12 @@ const App = () => {
         if(!game) return;
         // subscribe to the updates
         const subscription = DataStore.observe(Game, game.id).subscribe(msg => {
-        const newGame = msg.element;
             console.warn(msg.model, msg.opType, msg.element);
+            const newGame = msg.element;
             if(msg.opType === 'UPDATE') {
-                setGame((g) => ({...g, ...newGame}));
+                console.log({ ...game, ...newGame});
+                // setGame((g) => ({...g, ...newGame}));
+                setGame(newGame);
                 if(newGame.map) {
                     setMap(JSON.parse(newGame.map));
                 }
@@ -95,7 +90,7 @@ const App = () => {
         return () => {
             subscription.unsubscribe();
         }
-    }, [game]);
+    }, [game?.id]);
 
     const findOrCreateOnlineGame = async () => {
         const games = await getAvailableGames();
@@ -117,7 +112,7 @@ const App = () => {
     }
 
     const getAvailableGames = async () => {
-        const games = await DataStore.query(Game, (g) => g.playerO('eq', null));
+        const games = await DataStore.query(Game, (g) => g.playerO('eq', ''));
         return games;
     }
 
@@ -139,6 +134,7 @@ const App = () => {
         ]);
         const newGameData = new Game({
             playerX: userData.attributes.sub, // we don't know yet
+            playerO: '',
             map: emptyStringMap, // stringified map
             currentPlayer: 'X',
             pointsX: 0,
@@ -148,6 +144,18 @@ const App = () => {
         const createdGame = await DataStore.save(newGameData);
         setGame(createdGame);
         setOurPlayerType('X');
+    }
+
+    const updateGame = () => {
+        if(!game) return;
+        if(game.map !== JSON.stringify(map) || game.currentPlayer !== currentTurn) {
+            // console.log('Local game has updated...');
+            // console.log(game);
+            DataStore.save(Game.copyOf(game, g => {
+                g.currentPlayer = ourPlayerType;
+                g.map = JSON.stringify(map);
+            }));
+        }
     }
 
     const onPress = (rowIndex, columnIndex) => {
@@ -169,6 +177,8 @@ const App = () => {
         });
 
         setCurrentTurn(currentTurn === "X" ? "O" : "X");
+
+        updateGame();
     };
 
 
