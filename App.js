@@ -64,6 +64,7 @@ const App = () => {
             pointsO: 0,
         });
 
+        // console.warn('✅ New Game created!', newGameData);
         const createdGame = await DataStore.save(newGameData);
         setGame(createdGame);
         // console.warn('New game created', '✅');
@@ -131,7 +132,7 @@ const App = () => {
                     <View/>
                 )}
                 <Text className="absolute top-20 text-white uppercase tracking-widest text-lg font-semibold">Current turn: {currentTurn}</Text>
-                {game && (<Text className="absolute top-28 text-white uppercase tracking-widest text-lg font-semibold">Game id: {game.id}</Text>)}
+                {game && (<Text className="absolute top-28 text-white uppercase tracking-widest text-center text-base font-semibold">Game id: {game.id}</Text>)}
                 <View style={styles.map}>
                     {map.map((row, rowIndex) => (
                         <View key={`row-${rowIndex}`} style={styles.row}>
