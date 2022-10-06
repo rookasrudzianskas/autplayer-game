@@ -43,15 +43,17 @@ const App = () => {
         }
     }, [map]);
 
-    const findOrCreateOnlineGame = () => {
+    const findOrCreateOnlineGame = async () => {
         // search for the available games, that does not have the second player, if no
         // existing game found, create a new game and wait for the second player to join
         // console.warn('Create online game')
 
-        createNewGame();
+        await createNewGame();
     }
 
-    const createNewGame = () => {
+    const createNewGame = async () => {
+        const userData = await Auth.currentAuthenticatedUser({bypassCache: true});
+        // console.warn(userData);
         const emptyStringMap = JSON.stringify(emptyMap);
         const newGame = new Game({
             playerX: '', // we don't know yet
