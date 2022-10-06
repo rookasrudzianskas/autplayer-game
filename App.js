@@ -109,7 +109,7 @@ const App = () => {
                         </View>
                     ))}
                 </View>
-                <View style={styles.buttons}>
+                <View style={styles.buttons} className="">
                     <Text
                         onPress={() => setGameMode("LOCAL")}
                         style={[
