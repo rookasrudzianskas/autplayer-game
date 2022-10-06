@@ -10,10 +10,10 @@ export const getWinner = (winnerMap) => {
         const isRowOWinning = winnerMap[i].every((cell) => cell === "o");
 
         if (isRowXWinning) {
-            return "x";
+            return "X";
         }
         if (isRowOWinning) {
-            return "o";
+            return "O";
         }
     }
 
@@ -27,19 +27,19 @@ export const getWinner = (winnerMap) => {
         let isColumnOWinner = true;
 
         for (let row = 0; row < 3; row++) {
-            if (winnerMap[row][col] !== "x") {
+            if (winnerMap[row][col] !== "X") {
                 isColumnXWinner = false;
             }
-            if (winnerMap[row][col] !== "o") {
+            if (winnerMap[row][col] !== "O") {
                 isColumnOWinner = false;
             }
         }
 
         if (isColumnXWinner) {
-            return "x";
+            return "X";
         }
         if (isColumnOWinner) {
-            return "o";
+            return "O";
         }
     }
 
@@ -50,25 +50,25 @@ export const getWinner = (winnerMap) => {
     let isDiagonal2XWinning = true;
 
     for (let i = 0; i < 3; i++) {
-        if (winnerMap[i][i] !== "o") {
+        if (winnerMap[i][i] !== "O") {
             isDiagonal1OWinning = false;
         }
-        if (winnerMap[i][i] !== "x") {
+        if (winnerMap[i][i] !== "X") {
             isDiagonal1XWinning = false;
         }
 
-        if (winnerMap[i][2 - i] !== "o") {
+        if (winnerMap[i][2 - i] !== "O") {
             isDiagonal2OWinning = false;
         }
-        if (winnerMap[i][2 - i] !== "x") {
+        if (winnerMap[i][2 - i] !== "X") {
             isDiagonal2XWinning = false;
         }
     }
 
     if (isDiagonal1OWinning || isDiagonal2OWinning) {
-        return "o";
+        return "O";
     }
     if (isDiagonal1XWinning || isDiagonal2XWinning) {
-        return "x";
+        return "X";
     }
 }

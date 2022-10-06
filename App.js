@@ -61,6 +61,7 @@ const App = () => {
 
     useEffect(() => {
         const winner = getWinner(map);
+        console.warn('winner', winner);
         if (winner) {
             gameWon(winner);
         } else {
