@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
     },
     button: {
         color: "white",
-        margin: 10,
+        margin: 5,
         fontSize: 16,
         backgroundColor: "#191F24",
         padding: 10,
