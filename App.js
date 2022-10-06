@@ -48,7 +48,7 @@ const App = () => {
         const games = await getAvailableGames();
         // console.log('games', games);
         if(games.length > 0) {
-            await joinGame(game);
+            await joinGame(games[0]);
         } else {
             await createNewGame();
         }
