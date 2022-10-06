@@ -25,6 +25,7 @@ const App = () => {
     const [gameMode, setGameMode] = useState("BOT_MEDIUM"); // LOCAL, BOT_EASY, BOT_MEDIUM;
     const [currentTurn, setCurrentTurn] = useState('x');
     const [game, setGame] = useState(null);
+    const [userData, setUserData] = useState(null);
 
     useEffect(() => {
         if(gameMode === 'ONLINE') {
@@ -52,6 +53,10 @@ const App = () => {
         }
     }, [map]);
 
+    useEffect(() => {
+        Auth.currentAuthenticatedUser({ bypassCache: true }).then(setUserData);
+    }, []);
+
     const findOrCreateOnlineGame = async () => {
         const games = await getAvailableGames();
         // console.warn(games.length);
@@ -69,7 +74,11 @@ const App = () => {
     }
 
     const joinGame = async (game) => {
-        console.warn('🚀 Joining game', game.id);
+        // console.warn('🚀 Joining game', game.id);
+        const updatedGame = await DataStore.save(Game.copyOf(game, updatedGame => {
+            updatedGame.playerO = userData.attributes.sub;
+        }));
+        setGame(updatedGame);
     }
 
     const getAvailableGames = async () => {
@@ -88,7 +97,6 @@ const App = () => {
     }
 
     const createNewGame = async () => {
-        const userData = await Auth.currentAuthenticatedUser({bypassCache: true});
         // console.warn(userData);
         const emptyStringMap = JSON.stringify(emptyMap);
         const newGameData = new Game({
