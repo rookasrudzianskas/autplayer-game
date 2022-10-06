@@ -6,8 +6,8 @@ export const isTie = (map) => {
 export const getWinner = (winnerMap) => {
     // Check rows
     for (let i = 0; i < 3; i++) {
-        const isRowXWinning = winnerMap[i].every((cell) => cell === "x");
-        const isRowOWinning = winnerMap[i].every((cell) => cell === "o");
+        const isRowXWinning = winnerMap[i].every((cell) => cell === "X");
+        const isRowOWinning = winnerMap[i].every((cell) => cell === "O");
 
         if (isRowXWinning) {
             return "X";
