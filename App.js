@@ -47,11 +47,18 @@ const App = () => {
     const findOrCreateOnlineGame = async () => {
         const games = await getAvailableGames();
         // console.log('games', games);
+        if(games.length > 0) {
+            await joinGame(game);
+        } else {
+            await createNewGame();
+        }
         // search for the available games, that does not have the second player, if no
         // existing game found, create a new game and wait for the second player to join
         // console.warn('Create online game')
+    }
 
-        await createNewGame();
+    const joinGame = async (game) => {
+        console.warn('🚀 Joining game', game.id);
     }
 
     const getAvailableGames = async () => {
