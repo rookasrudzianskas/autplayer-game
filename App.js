@@ -23,6 +23,8 @@ const App = () => {
     useEffect(() => {
         if(gameMode === 'ONLINE') {
             findOrCreateOnlineGame();
+        } else {
+            deleteTemporaryGame();
         }
     }, [gameMode]);
 
@@ -64,6 +66,15 @@ const App = () => {
     const getAvailableGames = async () => {
         const games = await DataStore.query(Game);
         return games;
+    }
+
+    const deleteTemporaryGame = async () => {
+        if (!game || game.playerO) {
+            setGame(null);
+            return;
+        }
+        await DataStore.delete(game);
+        setGame(null);
     }
 
     const createNewGame = async () => {
