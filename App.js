@@ -10,6 +10,9 @@ import {emptyMap, copyArray} from './src/utils/index';
 import {getWinner, isTie} from './src/utils/gameLogic';
 import {botTurn} from "./src/utils/bot";
 import {styles} from "./app.style";
+import { DataStore } from 'aws-amplify';
+import {Game} from './src/models';
+
 
 const App = () => {
     const [map, setMap] = useState(emptyMap);
@@ -43,6 +46,20 @@ const App = () => {
     const findOrCreateOnlineGame = () => {
         // search for the available games, that does not have the second player, if no
         // existing game found, create a new game and wait for the second player to join
+        // console.warn('Create online game')
+
+        createNewGame();
+    }
+
+    const createNewGame = () => {
+        const emptyStringMap = JSON.stringify(emptyMap);
+        const newGame = new Game({
+            playerX: '', // we don't know yet
+            map: emptyStringMap, // stringified map
+            currentPlayer: 'x',
+            pointsX: 0,
+            pointsO: 0,
+        })
     }
 
     const onPress = (rowIndex, columnIndex) => {
