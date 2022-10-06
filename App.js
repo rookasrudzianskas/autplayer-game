@@ -23,7 +23,7 @@ Amplify.configure({
 const App = () => {
     const [map, setMap] = useState(emptyMap);
     const [gameMode, setGameMode] = useState("BOT_MEDIUM"); // LOCAL, BOT_EASY, BOT_MEDIUM;
-    const [currentTurn, setCurrentTurn] = useState('x');
+    const [currentTurn, setCurrentTurn] = useState('X');
     const [game, setGame] = useState(null);
     const [userData, setUserData] = useState(null);
     const [ourPlayerType, setOurPlayerType] = useState(null);
@@ -34,6 +34,11 @@ const App = () => {
             findOrCreateOnlineGame();
         } else {
             deleteTemporaryGame();
+        }
+
+        setCurrentTurn('X');
+        if(gameMode !== 'ONLINE') {
+            setOurPlayerType('X');
         }
     }, [gameMode]);
 
@@ -72,7 +77,16 @@ const App = () => {
         // subscribe to the updates
         const subscription = DataStore.observe(Game, game.id).subscribe(msg => {
             console.warn(msg.model, msg.opType, msg.element);
+            if(msg.opType === 'UPDATE') {
+                setGame(msg.element);
+                setMap(JSON.parse(msg.element.map));
+                setCurrentTurn(msg.element.currentPlayer);
+            }
         });
+
+        return () => {
+            subscription.unsubscribe();
+        }
     }, [game]);
 
     const findOrCreateOnlineGame = async () => {
@@ -97,6 +111,7 @@ const App = () => {
             updatedGame.playerO = userData.attributes.sub;
         }));
         setGame(updatedGame);
+        setCurrentTurn(updatedGame.currentPlayer);
         setOurPlayerType('O');
     }
 
@@ -139,7 +154,8 @@ const App = () => {
 
     const onPress = (rowIndex, columnIndex) => {
 
-        if(gameMode === 'ONLINE' && game?.currentPlayer !== ourPlayerType) {
+        // console.warn('Current turn', currentTurn, ourPlayerType);
+        if(gameMode === 'ONLINE' && currentTurn !== ourPlayerType) {
             Alert.alert('It is not your turn!', 'Please wait for your opponent to make a move');
             return;
         }
@@ -198,7 +214,7 @@ const App = () => {
     return (
         <View style={styles.container} className="relative bg-[#242D34]">
             <ImageBackground source={bg} style={styles.bg} resizeMode={'contain'} >
-                {false ? (
+                {true ? (
                     <TouchableOpacity onPress={onLogOut} activeOpacity={0.7} className="absolute top-14 py-1 px-4 rounded-lg bg-blue-500">
                         <Text className="font-semibold text-white">Sign out</Text>
                     </TouchableOpacity>
