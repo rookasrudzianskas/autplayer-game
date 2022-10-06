@@ -48,10 +48,13 @@ const App = () => {
 
     const findOrCreateOnlineGame = async () => {
         const games = await getAvailableGames();
+        // console.warn(games.length);
         // console.log('games', games);
         if(games.length > 0) {
+            // console.warn('#1')
             await joinGame(games[0]);
         } else {
+            // console.warn('#2')
             await createNewGame();
         }
         // search for the available games, that does not have the second player, if no
@@ -74,6 +77,7 @@ const App = () => {
             return;
         }
         await DataStore.delete(game);
+        // await DataStore.delete(Game, game.id); // or this option
         setGame(null);
     }
 
