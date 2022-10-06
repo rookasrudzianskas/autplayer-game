@@ -5,13 +5,19 @@ import Cell from "./src/components/Cell";
 import {Amplify, Auth} from 'aws-amplify'
 import awsconfig from './src/aws-exports'
 import {withAuthenticator} from "aws-amplify-react-native/src/Auth";
-Amplify.configure(awsconfig);
 import {emptyMap, copyArray} from './src/utils/index';
 import {getWinner, isTie} from './src/utils/gameLogic';
 import {botTurn} from "./src/utils/bot";
 import {styles} from "./app.style";
 import { DataStore } from 'aws-amplify';
 import {Game} from './src/models';
+
+Amplify.configure({
+    ...awsconfig,
+    Analytics: {
+        disabled: true,
+    }
+});
 
 
 const App = () => {
@@ -67,7 +73,7 @@ const App = () => {
     }
 
     const getAvailableGames = async () => {
-        const games = await DataStore.query(Game, );
+        const games = await DataStore.query(Game, (g) => g.playerO('eq', null));
         return games;
     }
 
