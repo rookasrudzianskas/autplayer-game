@@ -124,7 +124,8 @@ const App = () => {
         setCurrentTurn('x');
     }
 
-    const onLogOut = () => {
+    const onLogOut = async () => {
+        await DataStore.clear();
         Auth.signOut();
     }
 
