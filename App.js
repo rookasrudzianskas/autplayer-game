@@ -148,14 +148,14 @@ const App = () => {
 
     const updateGame = () => {
         if(!game) return;
-        if(game.map !== JSON.stringify(map) || game.currentPlayer !== currentTurn) {
+        // if(game.map !== JSON.stringify(map) || game.currentPlayer !== currentTurn) {
             // console.log('Local game has updated...');
             // console.log(game);
             DataStore.save(Game.copyOf(game, g => {
-                g.currentPlayer = ourPlayerType;
+                g.currentPlayer = currentTurn;
                 g.map = JSON.stringify(map);
             }));
-        }
+        // }
     }
 
     const onPress = (rowIndex, columnIndex) => {
@@ -177,8 +177,6 @@ const App = () => {
         });
 
         setCurrentTurn(currentTurn === "X" ? "O" : "X");
-
-        updateGame();
     };
 
 
