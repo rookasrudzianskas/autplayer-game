@@ -27,6 +27,7 @@ const App = () => {
     const [game, setGame] = useState(null);
     const [userData, setUserData] = useState(null);
     const [ourPlayerType, setOurPlayerType] = useState(null);
+    const [gameFinished, setGameFinished] = useState(false);
 
     useEffect(() => {
         resetGame();
@@ -60,13 +61,18 @@ const App = () => {
     }, [currentTurn]);
 
     useEffect(() => {
+        if(gameFinished) {
+            Alert.alert("Game Won", "Congratulations! You won the game!");
+            return;
+        }
         const winner = getWinner(map);
-        console.warn('winner', winner);
+        // console.warn('winner', winner);
         if (winner) {
             gameWon(winner);
         } else {
             checkTieState();
         }
+        setGameFinished(true);
     }, [map]);
 
     useEffect(() => {
@@ -214,7 +220,7 @@ const App = () => {
             ['', '', ''],
         ]);
         setCurrentTurn('X');
-        setGame(null);
+        setGameFinished(false);
     }
 
     const onLogOut = async () => {
