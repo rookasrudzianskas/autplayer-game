@@ -29,6 +29,12 @@ const App = () => {
     }, [gameMode]);
 
     useEffect(() => {
+        return () => {
+            deleteTemporaryGame();
+        }
+    }, []);
+
+    useEffect(() => {
         if (currentTurn === "o" && gameMode !== "LOCAL") {
             const chosenOption = botTurn(map, gameMode);
             if(chosenOption) {
@@ -67,7 +73,7 @@ const App = () => {
     }
 
     const getAvailableGames = async () => {
-        const games = await DataStore.query(Game);
+        const games = await DataStore.query(Game, );
         return games;
     }
 
