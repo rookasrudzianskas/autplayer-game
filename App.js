@@ -69,10 +69,10 @@ const App = () => {
         // console.warn('winner', winner);
         if (winner) {
             gameWon(winner);
+            setGameFinished(true);
         } else {
             checkTieState();
         }
-        setGameFinished(true);
     }, [map]);
 
     useEffect(() => {
@@ -199,6 +199,7 @@ const App = () => {
                 ['', '', ''],
                 ['', '', ''],
             ]);
+            setGameFinished(true);
         }
     }
 
