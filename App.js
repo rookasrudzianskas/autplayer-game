@@ -56,6 +56,10 @@ const App = () => {
     }, [map]);
 
     useEffect(() => {
+        updateGame();
+    }, [currentTurn]);
+
+    useEffect(() => {
         const winner = getWinner(map);
         if (winner) {
             gameWon(winner);
