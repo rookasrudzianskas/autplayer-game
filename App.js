@@ -53,10 +53,12 @@ const App = () => {
 
     useEffect(() => {
         if(!game) return;
-        DataStore.save(Game.copyOf(game, g => {
-            g.currentPlayer = ourPlayerType;
-            g.map = JSON.stringify(map);
-        }));
+        if(game.map !== JSON.stringify(map) || game.currentPlayer !== currentTurn) {
+            DataStore.save(Game.copyOf(game, g => {
+                g.currentPlayer = ourPlayerType;
+                g.map = JSON.stringify(map);
+            }));
+        }
     }, [currentTurn, map]);
 
     useEffect(() => {
@@ -112,11 +114,9 @@ const App = () => {
 
     const joinGame = async (game) => {
         // console.warn('🚀 Joining game', game.id);
-        const updatedGame = await DataStore.save(Game.copyOf(game, updatedGame => {
+        await DataStore.save(Game.copyOf(game, updatedGame => {
             updatedGame.playerO = userData.attributes.sub;
         }));
-        setGame(updatedGame);
-        setCurrentTurn(updatedGame.currentPlayer);
         setOurPlayerType('O');
     }
 
